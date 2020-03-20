@@ -11,11 +11,19 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ *
+ */
 @Service
 public class LitemallAdService {
     @Resource
     private LitemallAdMapper adMapper;
 
+    /**
+     * 根据广告位置1位首页，是否逻辑删除，是否启动
+     *
+     * @return 返回广告列表
+     */
     public List<LitemallAd> queryIndex() {
         LitemallAdExample example = new LitemallAdExample();
         example.or().andPositionEqualTo((byte) 1).andDeletedEqualTo(false).andEnabledEqualTo(true);

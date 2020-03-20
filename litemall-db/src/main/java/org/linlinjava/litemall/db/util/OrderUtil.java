@@ -121,6 +121,11 @@ public class OrderUtil {
         return handleOption;
     }
 
+    /**
+     *
+     * @param showType 显示类型
+     * @return
+     */
     public static List<Short> orderStatus(Integer showType) {
         // 全部订单
         if (showType == 0) {

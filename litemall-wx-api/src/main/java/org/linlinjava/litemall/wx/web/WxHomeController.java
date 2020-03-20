@@ -78,9 +78,11 @@ public class WxHomeController {
     @GetMapping("/index")
     public Object index(@LoginUser Integer userId) {
         //优先从缓存中读取
+        //判断缓存中是否有数据
         if (HomeCacheManager.hasData(HomeCacheManager.INDEX)) {
             return ResponseUtil.ok(HomeCacheManager.getCacheData(HomeCacheManager.INDEX));
         }
+//        创建一个可重用固定线程数的线程池，以共享的无界队列方式来运行这些线程
         ExecutorService executorService = Executors.newFixedThreadPool(10);
 
         Callable<List> bannerListCallable = () -> adService.queryIndex();
