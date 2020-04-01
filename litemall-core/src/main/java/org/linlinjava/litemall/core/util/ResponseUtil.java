@@ -47,6 +47,12 @@ public class ResponseUtil {
         return obj;
     }
 
+    /**
+     * 看返回是否成功
+     *
+     * @param data
+     * @return
+     */
     public static Object ok(Object data) {
         Map<String, Object> obj = new HashMap<String, Object>();
         obj.put("errno", 0);

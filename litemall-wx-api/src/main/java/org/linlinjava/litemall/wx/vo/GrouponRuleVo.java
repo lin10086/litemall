@@ -3,6 +3,9 @@ package org.linlinjava.litemall.wx.vo;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * 团购列表
+ */
 public class GrouponRuleVo {
     private Integer id;
     private String name;

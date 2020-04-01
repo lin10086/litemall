@@ -17,12 +17,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 团购规则表业务
+ */
 @Service
 public class LitemallGrouponRulesService {
     @Resource
     private LitemallGrouponRulesMapper mapper;
     @Resource
     private LitemallGoodsMapper goodsMapper;
+    //要显示的字段：ID，name,brief,picUrl,counterPrice,retailPrice
     private LitemallGoods.Column[] goodsColumns = new LitemallGoods.Column[]{LitemallGoods.Column.id, LitemallGoods.Column.name, LitemallGoods.Column.brief, LitemallGoods.Column.picUrl, LitemallGoods.Column.counterPrice, LitemallGoods.Column.retailPrice};
 
     public int createRules(LitemallGrouponRules rules) {
@@ -56,7 +60,7 @@ public class LitemallGrouponRulesService {
     public int countByGoodsId(Integer goodsId) {
         LitemallGrouponRulesExample example = new LitemallGrouponRulesExample();
         example.or().andGoodsIdEqualTo(goodsId).andStatusEqualTo(GrouponConstant.RULE_STATUS_ON).andDeletedEqualTo(false);
-        return (int)mapper.countByExample(example);
+        return (int) mapper.countByExample(example);
     }
 
     public List<LitemallGrouponRules> queryByStatus(Short status) {
@@ -68,17 +72,26 @@ public class LitemallGrouponRulesService {
     /**
      * 获取首页团购规则列表
      *
-     * @param page
-     * @param limit
-     * @return
+     * @param page  第几页
+     * @param limit 排序规则
+     * @return 团购规则列表
      */
     public List<LitemallGrouponRules> queryList(Integer page, Integer limit) {
         return queryList(page, limit, "add_time", "desc");
     }
 
+    /**
+     * @param page  第几页
+     * @param limit 每页几条
+     * @param sort  排序字段
+     * @param order 排序规则
+     * @return 团购规则列表
+     */
     public List<LitemallGrouponRules> queryList(Integer page, Integer limit, String sort, String order) {
         LitemallGrouponRulesExample example = new LitemallGrouponRulesExample();
+        //团购规则状态RULE_STATUS_ON=0正常上线，是否逻辑删除
         example.or().andStatusEqualTo(GrouponConstant.RULE_STATUS_ON).andDeletedEqualTo(false);
+//        设置排序字段和排序规则
         example.setOrderByClause(sort + " " + order);
         PageHelper.startPage(page, limit);
         return mapper.selectByExample(example);
